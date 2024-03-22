@@ -1,0 +1,53 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img src="https://img.freepik.com/fotos-premium/icono-usuario-simbolo-persona-avatar-humano-3d-render_473931-217.jpg?w=740" alt="avatar"
+                                 class="rounded-circle img-fluid" style="width: 150px;">
+                            <h5 class="my-3">{{ philanthropy.philanthropy_member_name }}</h5>
+                            <p class="text-muted mb-1">{{ philanthropy.philanthropy_member_code }}</p>
+                            <div class="d-flex justify-content-center mb-2">
+                                <a href="{% url 'philanthropy_edit' philanthropy.philanthropy_member_code %}">
+                                    <button type="button" class="btn btn-primary button-with-shadow">Editar</button>
+                                </a>
+                                <a href="{% url 'delete_philanthropy' philanthropy.philanthropy_member_code %}">
+                                    <button type="button" class="btn btn-outline-primary ms-1 button-with-shadow">Eliminar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ philanthropy.philanthropy_member_name }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ philanthropy.philanthropy_member_email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

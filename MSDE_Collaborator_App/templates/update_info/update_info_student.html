@@ -1,0 +1,83 @@
+{% extends 'layouts/base_collaborator.html' %}
+{% load static %}
+
+{% block content %}
+    <section>
+        <h1 class="display-4 text-center mb-5">
+            Subir Información
+        </h1>
+        <div class="container py-5">
+            <div class="row">
+                <h2>
+                    Actualizar: {{ info_type }}
+                </h2>
+                <p>
+                    A continuación, da click en 'Seleccionar Archivo' para subir un archivo en formato .csv para
+                    actualizar la información
+                </p>
+            </div>
+            <div class="row text-center mt-5">
+                <form method="post" name="subir_post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="upload" value="{{ info_type }}" readonly>
+                    <input type="file" name="csv_file" accept=".csv, .xlsx" id="csv-file" required>
+                    <button style="margin-left: 20px; color: white; border-radius: 5px"
+                            class="btn-primary button-with-shadow" type="submit">Subir
+                    </button>
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %};">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Archivo de Ejemplo para Importar Estudiantes
+                    </div>
+                    <div class="card-body">
+                        {% if info_type == 'balance' %}
+                            <img src="https://i.imgur.com/mhtuiL5.png"
+                                 alt="Vista previa del archivo de ejemplo"
+                                 class="img-fluid mb-3">
+                        {% endif %}
+                        {% if info_type == 'extra-academicas' %}
+                            <img src="https://i.imgur.com/jhZtAjN.png"
+                                 alt="Vista previa del archivo de ejemplo"
+                                 class="img-fluid mb-3">
+                        {% endif %}
+                        {% if info_type == 'CREA' %}
+                            <img src="https://i.imgur.com/cwJf9Ex.png" alt="Vista previa del archivo de ejemplo"
+                             class="img-fluid mb-3">
+                        {% endif %}
+
+                        <p>Aquí puedes descargar un archivo de ejemplo para ver el formato requerido:</p>
+
+                        {% if info_type == 'balance' %}
+                            <a href="{% static 'excel_format/Ejemplo_formato_balance.xlsx' %}" download
+                               class="btn btn-primary">Descargar
+                                Archivo de Ejemplo</a>
+                        {% endif %}
+                        {% if info_type == 'extra-academicas' %}
+                            <a href="{% static 'excel_format/Ejemplo_formato_extra.xlsx' %}" download
+                               class="btn btn-primary">Descargar
+                                Archivo de Ejemplo</a>
+                        {% endif %}
+                        {% if info_type == 'CREA' %}
+                            <a href="{% static 'excel_format/Ejemplo_formato_crea.xlsx' %}" download
+                               class="btn btn-primary">Descargar
+                                Archivo de Ejemplo</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

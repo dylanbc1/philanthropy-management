@@ -1,0 +1,18 @@
+{% extends 'layouts/base_collaborator.html'%}
+
+{% block content %}
+       <main class="container">
+            <div class="row">
+                <div>
+                     <form method="POST" class="card card-body">
+                         <h1>Crear nuevo colaborador</h1>
+                          {{ error }}
+                          {% csrf_token %}
+                          {{ form.as_p }}
+                          <button type="submit" class="btn btn-primary button-with-shadow mt-2">Guardar</button>
+                         <a class="btn btn-outline-primary cancel-button button-with-shadow mt-2" href="/col/collaborator" role="button">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+       </main>
+{% endblock %}

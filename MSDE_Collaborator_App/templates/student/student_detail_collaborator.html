@@ -1,0 +1,140 @@
+{% extends 'layouts/base_collaborator.html' %}
+
+{% block content %}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <style>
+                            .profile-image {
+                                width: 150px;
+                                height: 150px;
+                                object-fit: cover;
+                            }
+                        </style>
+                        {% if student.profile_picture %}
+                            <img src="{{ student.profile_picture.url }}"
+                                 alt="Foto de perfil de {{ student.student_name }}"
+                                 class="rounded-circle img-fluid profile-image">
+                        {% else %}
+                            <img src="https://img.freepik.com/fotos-premium/icono-usuario-simbolo-persona-avatar-humano-3d-render_473931-217.jpg?w=740"
+                                 alt="avatar" class="rounded-circle img-fluid profile-image">
+                        {% endif %}
+
+
+                        <h5 class="my-3">{{ student.student_name }} {{ student.student_surname }}</h5>
+                        <p class="text-muted mb-1">{{ student.student_code }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <div class="d-flex justify-content-center align-items-center pt-4">
+                                <a href="{% url 'create_alert_collaborator' student.student_code %}">
+                                    <button type="button" class="btn btn-primary button-with-shadow">Alerta</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mb-2">
+                            <div class="d-flex justify-content-center align-items-center pt-1">
+                                <a>
+                                    <button type="button"
+                                            class="btn btn-primary button-with-shadow"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#updateModal"
+                                    >Subir información
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Modal añadido --->
+                        <div class="modal fade" id="updateModal" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form method="GET"
+                                              action="{% url 'update_info_student' student.student_code %}">
+                                            {% csrf_token %}
+                                            <p>Qué tipo de información deseas subir?:</p>
+                                            <select class="form-select me-2" name="info-type-select"
+                                                    aria-label="Default select">
+                                                <option selected>Subir...</option>
+                                                <option value="extra-academicas">Actividades
+                                                Extra-Académicas</option>
+                                                <option value="balance">Balance Académico</option>
+                                                <option value="CREA">Consultas en CREA</option>
+                                            </select>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary button-with-shadow"
+                                                        data-bs-dismiss="modal">
+                                                    Cerrar
+                                                </button>
+                                                <button type="submit"
+                                                        class="btn btn-primary button-with-shadow">Ir
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ student.student_name }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ student.student_email }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ student.student_phone_number }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Code</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ student.student_code }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">ICFES</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{ student.student_ICFES_score }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
